@@ -39,13 +39,17 @@ public class AdvacedPanel extends JPanel{
 		
 		
 		//Background
+		g2.setColor(Color.yellow);
+		g2.drawBytes(String.valueOf(ticks).getBytes(), 0, String.valueOf(ticks).getBytes().length, 10,10);
 		g2.setColor(Color.DARK_GRAY);
 		g2.fillRect(0, 0, getWidth(), getHeight());
 		// Player
-		for(Position2D pos : player.positions) {
+		for(TailPiece tp : player.tail) {
 			g2.setColor(Color.red);
-			g2.fillRect(pos.getPosAsPixel("x",wstore.zoomlevel),pos.getPosAsPixel("y",wstore.zoomlevel) , wstore.zoomlevel, wstore.zoomlevel);
+			g2.fillRect(tp.pos.getPosAsPixel("x",wstore.zoomlevel),tp.pos.getPosAsPixel("y",wstore.zoomlevel) , wstore.zoomlevel, wstore.zoomlevel);
 		}
+		
+		
 		repaint();
 	}
 	

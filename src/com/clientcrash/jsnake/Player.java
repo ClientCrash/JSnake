@@ -3,14 +3,14 @@ package com.clientcrash.jsnake;
 import java.util.ArrayList;
 
 public class Player {
-	public ArrayList<Position2D> positions;
+	public ArrayList<TailPiece> tail;
 	int nextxadd = 1;
 	int nextyadd=0;
 	public Player() {
-		positions = new ArrayList<Position2D>();
-		positions.add(new Position2D(0, 0));
-		positions.add(new Position2D(-1, 0));
-		positions.add(new Position2D(-2, 0));
+		tail = new ArrayList<TailPiece>();
+		tail.add(new TailPiece(new Position2D(1, 1)));
+
+		tail.add(new TailPiece(tail.get(0),new Position2D(2, 1)));
 	}
 	void setNextMove(int x,int y){
 		nextxadd=x;
@@ -20,12 +20,15 @@ public class Player {
 		
 		
 		
-		for(int i =0; i<positions.size();i++) {
-			if(i==0) {
-				positions.set(0, new Position2D(positions.get(0).x+nextxadd,positions.get(0).y+nextyadd));
+		for(int i =tail.size()-1; i>0;i--) {
+			//TODO: work backwards through the tail and call the copy parrent function on every piece
+			if(tail.get(i).ishead) {
+				tail.get(i).pos = new Position2D(tail.get(i).pos.x+nextxadd, tail.get(i).pos.y+nextyadd);
+				
+				
 			}else {
-				//shift all positions != 0 to the position "in front" of them
-			positions.set(i, positions.get(i-1));
+
+				tail.get(i).copyMasterPos();
 			}
 		}
 	}
